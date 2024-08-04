@@ -18,7 +18,6 @@
           }
           ?>
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">dashboard</i>
           </div>
           <span class="nav-link-text ms-1">Home</span>
           </a>
@@ -34,7 +33,6 @@
           }
           ?>
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">school</i>
           </div>
           <span class="nav-link-text ms-1">List Siswa</span>
           </a>
@@ -47,7 +45,6 @@
         }
         ?>
         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-          <i class="material-icons opacity-10">settings</i>
         </div>
         <span class="nav-link-text ms-1">Atur Pertemuan</span>
         </a>
@@ -61,7 +58,6 @@
           }
           ?>
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">book</i>
           </div>
           <span class="nav-link-text ms-1">Materi</span>
           </a>
@@ -81,7 +77,6 @@
           }
           ?>
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">task</i>
           </div>
           <span class="nav-link-text ms-1">Tugas</span>
           </a>
@@ -97,7 +92,6 @@
           }
           ?>
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">quiz</i>
           </div>
           <span class="nav-link-text ms-1">Quiz</span>
           </a>
@@ -115,7 +109,6 @@
           }
           ?>
           <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">score</i>
           </div>
           <span class="nav-link-text ms-1">Menilai</span>
           </a>
@@ -136,7 +129,6 @@
             echo '<a class="nav-link text-white " href="' . base_url('guruprofile') . '">';
           }
           ?> <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-            <i class="material-icons opacity-10">person</i>
           </div>
           <span class="nav-link-text ms-1">Profile</span>
           </a>
@@ -144,7 +136,6 @@
         <li class="nav-item">
           <a class="nav-link text-white " href="<?php echo base_url('auth/logout'); ?>">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">logout</i>
             </div>
             <span class="nav-link-text ms-1">Log Out</span>
           </a>

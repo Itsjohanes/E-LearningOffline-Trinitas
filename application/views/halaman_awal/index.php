@@ -5,7 +5,7 @@
                 rgba(0, 123, 255, 0.2),
                 rgba(0, 123, 255, 0.2)
               ),
-              url('<?= base_url('assets/frontend/picture/'); ?>banner.webp') no-repeat
+              url('<?= base_url('assets/'); ?>trinitttt.jpg') no-repeat
                 center / cover;
             height: 500px;
           ">

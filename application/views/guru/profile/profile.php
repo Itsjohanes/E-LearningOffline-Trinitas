@@ -35,8 +35,7 @@
                     </div>
                     <div class="col-md-4 text-end">
                       <a href="<?php echo base_url('guruprofile/editprofile');?>">
-                        <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
-                      </a>
+Edit                      </a>
                     </div>
                   </div>
                 </div>

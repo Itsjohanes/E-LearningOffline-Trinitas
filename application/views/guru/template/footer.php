@@ -95,11 +95,11 @@
   <script src="<?php echo base_url('assets/js/plugins/perfect-scrollbar.min.js');?>"></script>
   <script src="<?php echo base_url('assets/js/plugins/smooth-scrollbar.min.js');?>"></script>
   <script src="<?php echo base_url('assets/js/plugins/chartjs.min.js');?>"></script>
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <script async defer src="<?php echo base_url('assets/button.js');?>"></script>
   <script src="<?php echo base_url('assets/js/material-dashboard.min.js?v=3.1.0');?>"></script>
 
   <!--Data tables -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="<?php echo base_url('assets/jqueryy.js');?>"></script>
 
 <script src="<?= base_url('assets/backend/vendor/datatables/'); ?>jquery.dataTables.min.js"></script>
 <script src="<?= base_url('assets/backend/vendor/datatables/'); ?>dataTables.bootstrap4.min.js"></script>

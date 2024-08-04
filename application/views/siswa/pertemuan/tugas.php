@@ -1,9 +1,10 @@
-
 <style>
     .pdf-container {
         position: relative;
         width: 100%;
-        padding-bottom: 100%; /* Menyesuaikan aspek rasio PDF */
+        max-width: 1000px; /* Increased maximum width */
+        margin: auto; /* Center the container */
+        height: 600px; /* Fixed height */
     }
     
     .pdf {
