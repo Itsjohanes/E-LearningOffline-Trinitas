@@ -343,6 +343,7 @@ class Pertemuan extends CI_Controller {
             $score = 0;
             $benar = 0;
             $salah = 0;
+            $kosong = 0;
             $str_jawaban = "";
 
             for ($i = 0; $i < $jumlah; $i++) {
