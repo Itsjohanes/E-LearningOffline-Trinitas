@@ -184,9 +184,7 @@ class Pertemuan extends CI_Controller {
             //file upload pdf from name = "upload"
             $upload = $_FILES['upload']['name'];
             if ($upload) {
-                $config['allowed_types'] = 'pdf';
                 $config['encrypt_name'] = TRUE;
-                $config['max_size'] = '2048';
                 $config['upload_path'] = './assets/tugassiswa/';
                 $this->load->library('upload', $config);
                 if ($this->upload->do_upload('upload')) {
@@ -253,8 +251,6 @@ class Pertemuan extends CI_Controller {
             $upload = $_FILES['upload']['name'];
             if ($upload) {
                 $config['encrypt_name'] = TRUE;
-                $config['allowed_types'] = 'pdf';
-                $config['max_size'] = '2048';
                 $config['upload_path'] = './assets/tugassiswa/';
                 if ($upload != $filelama) {
                     $this->load->library('upload', $config);

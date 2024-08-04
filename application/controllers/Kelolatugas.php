@@ -31,7 +31,6 @@ class Kelolatugas extends CI_Controller {
             $tugas = $_FILES['tugas']['name'];
             if ($tugas) {
                 $config['allowed_types'] = 'pdf';
-                $config['max_size'] = '2048';
                 $config['upload_path'] = './assets/tugas/';
                 $this->load->library('upload', $config);
                 if ($this->upload->do_upload('tugas')) {
@@ -83,7 +82,6 @@ class Kelolatugas extends CI_Controller {
             $tugas = $_FILES['tugas']['name'];
             if ($tugas) {
                 $config['allowed_types'] = 'pdf';
-                $config['max_size'] = '2048';
                 $config['upload_path'] = './assets/tugas/';
                 $this->load->library('upload', $config);
                 unlink(FCPATH . './assets/tugas/' . $tugasLama);

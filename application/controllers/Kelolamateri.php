@@ -33,7 +33,6 @@ class Kelolamateri extends CI_Controller {
 
             if ($materi) {
                 $config['allowed_types'] = 'pdf';
-                $config['max_size'] = '8192';
                 $config['upload_path'] = './assets/materi/';
                 $this->load->library('upload', $config);
 
@@ -85,7 +84,6 @@ class Kelolamateri extends CI_Controller {
             $materi = $_FILES['materi']['name'];
             if ($materi) {
                 $config['allowed_types'] = 'pdf';
-                $config['max_size'] = '8192';
                 $config['upload_path'] = './assets/materi/';
                 $this->load->library('upload', $config);
                 unlink(FCPATH . './assets/materi/' . $materiLama);
