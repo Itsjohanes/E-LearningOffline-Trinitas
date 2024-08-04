@@ -7,7 +7,6 @@ class Awal extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model('Contact_model');
         $this->load->model('Kelolapertemuan_model');
     }
     function coba(){

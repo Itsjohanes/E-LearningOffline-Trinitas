@@ -132,12 +132,6 @@
   });
   </script>
 </body>
-<script>
-      $(function () {
-        if (renderPage) {
-          $("body").addClass("loaded");
-        }
-      });
-</script>
+
 
 </html>

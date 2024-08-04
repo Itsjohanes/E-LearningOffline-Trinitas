@@ -26,12 +26,5 @@
 
 </body>
 <script src="<?= base_url('assets/'); ?>js/jquery-3.2.1.slim.min.js"></script>
-<script>
 
-      $(function () {
-        if (renderPage) {
-          $("body").addClass("loaded");
-        }
-      });
-    </script>
 </html>
