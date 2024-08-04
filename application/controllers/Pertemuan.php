@@ -19,26 +19,21 @@ class Pertemuan extends CI_Controller {
         $status = $this->db->get_where('tb_pertemuan', ['id_pertemuan' => $id])->row_array(); 
         $data['tp'] = $status;
         $id_siswa = $this->session->userdata('id');
-        $hasilApersepsi = $this->db->get_where('tb_hasilapersepsi', ['id_siswa' => $id_siswa, 'id_pertemuan' => $id])->row_array();
         $id_pertemuan = $this->Pertemuan_model->getPertemuanById($id);
         if($id_pertemuan){
             if($status['aktif'] == 1){
-                if($hasilApersepsi != null){
-                    if($hasilApersepsi['orientasi'] == 1){
+                
                         $this->load->view('siswa/template/header', $data);
                         $this->load->view('siswa/template/sidebar', $data);
                         $this->load->view('siswa/pertemuan/tujuanpembelajaran', $data);
                         $this->load->view('siswa/template/footer');
-                    }else{
-                        redirect('pertemuan/orientasi/'.$id);
-                    }
+                    
                 }else{
-                    redirect('pertemuan/apersepsi/'.$id);
+                   $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Pertemuan belum aktif</div>');
+
+                    redirect('materi');
                 }
-            }else{
-                $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Pertemuan belum aktif</div>');
-                redirect('materi');
-            }
+            
     }else{
         $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Pertemuan tidak ada</div>');
         redirect('materi');
@@ -59,7 +54,6 @@ class Pertemuan extends CI_Controller {
                 $data['tp'] = $status;
                 
                 $id_siswa = $this->session->userdata('id');
-                $hasilApersepsi = $this->db->get_where('tb_hasilapersepsi', ['id_siswa' => $id_siswa, 'id_pertemuan' => $id])->row_array();
                 if($status['aktif'] == 1){
                     
                             $this->load->view('siswa/template/header', $data);
@@ -68,7 +62,7 @@ class Pertemuan extends CI_Controller {
                             $this->load->view('siswa/template/footer');
                        
                     }else{
-                        $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Pertemuan Tidak Ada</div>');
+                        $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Pertemuan Tidak Aktif</div>');
 
                         redirect('materi');
                     }
@@ -94,7 +88,6 @@ class Pertemuan extends CI_Controller {
                 $status = $this->db->get_where('tb_pertemuan', ['id_pertemuan' => $id])->row_array();
                 $data['tp'] = $status;
                 $id_siswa = $this->session->userdata('id');
-                $hasilApersepsi = $this->db->get_where('tb_hasilapersepsi', ['id_siswa' => $id_siswa, 'id_pertemuan' => $id])->row_array();
                 if($status['aktif'] == 1){
                             $this->load->view('siswa/template/header', $data);
                             $this->load->view('siswa/template/sidebar', $data);
@@ -128,7 +121,6 @@ class Pertemuan extends CI_Controller {
                 $status = $this->db->get_where('tb_pertemuan', ['id_pertemuan' => $id])->row_array(); 
                 $data['pertemuan']  = $id;
                 $id_siswa = $this->session->userdata('id');
-                $hasilApersepsi = $this->db->get_where('tb_hasilapersepsi', ['id_siswa' => $id_siswa, 'id_pertemuan' => $id])->row_array();
                 if($status['aktif'] == 1){
                             $this->load->view('siswa/template/header', $data);
                             $this->load->view('siswa/template/sidebar', $data);
@@ -157,8 +149,6 @@ class Pertemuan extends CI_Controller {
                 $data['tugas'] = $this->db->get_where('tb_tugas', ['id_pertemuan' => $id])->result_array();
                 $status = $this->db->get_where('tb_pertemuan', ['id_pertemuan' => $id])->row_array(); 
                 $id_siswa = $this->session->userdata('id');
-                $hasilApersepsi = $this->db->get_where('tb_hasilapersepsi', ['id_siswa' => $id_siswa, 'id_pertemuan' => $id])->row_array();
-                $data['apersepsi'] = $this->db->get_where('tb_hasilapersepsi', ['id_siswa' => $id_siswa, 'id_pertemuan' => $id])->row_array();
                 $data['pertemuan'] = $id;
                 if($status['aktif'] == '1'){
 
@@ -305,7 +295,6 @@ class Pertemuan extends CI_Controller {
             if($id_pertemuan){
             if($data['pertemuan']['aktif'] == '1'){
                 $id_siswa = $this->session->userdata('id');
-                $hasilApersepsi = $this->db->get_where('tb_hasilapersepsi', ['id_siswa' => $id_siswa, 'id_pertemuan' => $id])->row_array();
                 $hasiltugas =  $this->db->get_where('tb_hasiltugas', ['id_pertemuan' => $id, 'id_siswa' => $this->session->userdata('id')])->num_rows();
                 $data['quiz'] = $this->Quiz_model->getQuizCountBySiswaId($this->session->userdata('id'),$id);
                 if ($data['quiz'] > 0) {
@@ -316,10 +305,19 @@ class Pertemuan extends CI_Controller {
                                 $this->load->view('siswa/pertemuan/pembahasanquiz', $data);
                                 $this->load->view('siswa/template/footer');
                             }else{
-                                $this->load->view('siswa/template/header', $data);
-                                $this->load->view('siswa/template/sidebar', $data);
-                                $this->load->view('siswa/pertemuan/quiz', $data);
-                                $this->load->view('siswa/template/footer');
+                                //jika $data['soal'] != null
+                                if($data['soal']){
+                                     $this->load->view('siswa/template/header', $data);
+                                    $this->load->view('siswa/template/sidebar', $data);
+                                    $this->load->view('siswa/pertemuan/quiz', $data);
+                                    $this->load->view('siswa/template/footer');
+
+                                }else{
+                                    $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Soal Quiz belum ada</div>');
+                                    redirect('materi');
+                                }
+                                
+                               
                             }        
                            
                     

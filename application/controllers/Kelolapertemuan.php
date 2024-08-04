@@ -74,7 +74,6 @@ class Kelolapertemuan extends CI_Controller {
                         'dateline_tgs'   => $dateline_tgs,
                         'aktif'        => 0,
                         'gambar' => $gambar,
-                        'apersepsi' => $apersepsi
                     );
                     $this->Kelolapertemuan_model->tambahPertemuan($data);
                     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pertemuan berhasil ditambahkan</div>');
@@ -121,7 +120,7 @@ class Kelolapertemuan extends CI_Controller {
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Pertemuan gagal diubah</div>');
                     redirect('kelolaPertemuan');
                 }
-                $this->Kelolapertemuan_model->editPertemuan($id_pertemuan,$penjelasan,$gambar,$tp,$dateline_tgs,$apersepsi);
+                $this->Kelolapertemuan_model->editPertemuan($id_pertemuan,$penjelasan,$gambar,$tp,$dateline_tgs);
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pertemuan berhasil diubah!</div>');
                 redirect('kelolapertemuan');
             }
