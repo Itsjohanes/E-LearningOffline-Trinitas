@@ -47,7 +47,7 @@ E-Learning Offline
         <div class="container">
           <div class="row">
             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
-              <div class="position-relative bg-gradient-info h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('../assets/img/illustrations/illustration-reset.jpg'); background-size: cover;">
+              <div class="position-relative bg-gradient-info h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('../assets/trinitttt.jpg'); background-size: cover;">
               </div>
             </div>
             <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
@@ -60,7 +60,7 @@ E-Learning Offline
               <form class="user" method="post" action="<?= base_url('auth/registration') ?>">
                     <div class="input-group input-group-outline mb-3">
                       <label class="form-label"></label>
-                      <input type="text" placeholder = "Nama Lengkap-Kelas (Misal: X-1)-Absen" name = "nama" class="form-control">
+                      <input type="text" placeholder = "Kelas-Nama-Absen (XI-1-Johannes-1)" name = "nama" class="form-control">
 
                     </div>
                     <div class="input-group input-group-outline mb-3">

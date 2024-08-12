@@ -89,7 +89,6 @@ class Auth extends CI_Controller
       $this->Auth_model->register_user($email, $nama, $password, $role);
       $idSiswa = $this->Auth_model->getIdAkun($email, $nama, $password);
       $this->Auth_model->RegisterNilai($idSiswa);
-
       $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Congratulation! Your account has been created. Please login.</div>');
       redirect('auth');
     }

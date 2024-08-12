@@ -177,20 +177,23 @@ class Pertemuan extends CI_Controller {
     }
 
    
-    public function tambahTugas() {
+            public function tambahTugas() {
             $id_siswa = $this->session->userdata('id');
             $pertemuan = $this->input->post('pertemuan');
             $text = $this->input->post('text');
-            //file upload pdf from name = "upload"
             $upload = $_FILES['upload']['name'];
+
             if ($upload) {
                 $config['encrypt_name'] = TRUE;
                 $config['upload_path'] = './assets/tugassiswa/';
+                $config['allowed_types'] = 'pdf|docx|doc'; // Izinkan file PDF, DOCX, dan DOC
+                $config['max_size'] = 32000; // Maksimal ukuran file 2MB
+
                 $this->load->library('upload', $config);
+
                 if ($this->upload->do_upload('upload')) {
                     $new_upload = $this->upload->data('file_name');
 
-                    $this->db->set('upload', $new_upload);
                     $data = [
                         'id_siswa' => $id_siswa,
                         'id_pertemuan' => $pertemuan,
@@ -198,19 +201,26 @@ class Pertemuan extends CI_Controller {
                         'upload' => $new_upload,
                         'created_at' => date('Y-m-d H:i:s')
                     ];
-                    //setAlert
+
+                    // Simpan tugas ke database
                     $this->Pertemuan_model->insertHasilTugas($data);
-                    //set flashdata
+
+                    // Set flashdata untuk pesan sukses
                     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Tugas berhasil diupload</div>');
                 } else {
-                    //setAlert
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Tugas gagal diupload</div>');
+                    // Set flashdata untuk pesan gagal
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Tugas gagal diupload: ' . $error . '</div>');
                 }
+            } else {
+                // Set flashdata jika tidak ada file yang diupload
+                $this->session->set_flashdata('message', '<div class="alert alert-warning" role="alert">Tidak ada file yang diupload</div>');
             }
 
+            // Redirect kembali ke halaman sebelumnya
             redirect($this->agent->referrer());
-        
-    }
+        }
+
 
     public function hapusTugas($id = '') {
             //cek apakah id_usernya sama dengan id_pemilik tugas
@@ -243,42 +253,58 @@ class Pertemuan extends CI_Controller {
     }
 
     public function editTugas() {
-            $id = $this->input->post('id_hasiltugas');
-            $pertemuan = $this->input->post('pertemuan');
-            $slide = $this->input->post('slide');
-            $filelama = $this->input->post('filelama');
-            $text = $this->input->post('text');
-            $upload = $_FILES['upload']['name'];
-            if ($upload) {
-                $config['encrypt_name'] = TRUE;
-                $config['upload_path'] = './assets/tugassiswa/';
-                if ($upload != $filelama) {
-                    $this->load->library('upload', $config);
-                    if ($this->upload->do_upload('upload')) {
-                        unlink(FCPATH . 'assets/tugassiswa/' . $filelama);
-                        $new_upload = $this->upload->data('file_name');
-                        $this->db->set('upload', $new_upload);
-                        $data = [
-                            'id_hasiltugas' => $id,
-                            'id_pertemuan' => $pertemuan,
-                            'upload' => $new_upload,
-                            'text' => $text,
-                            'updated_at' => date('Y-m-d H:i:s')
-                        ];
-                        $this->Pertemuan_model->updateHasilTugas($id, $data);
-                    } else {
-                        echo $this->upload->display_errors();
-                    }
-                } else {
-                    $upload = $filelama;
-                }
-               $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Tugas berhasil diubah</div>');
+    $id = $this->input->post('id_hasiltugas');
+    $pertemuan = $this->input->post('pertemuan');
+    $filelama = $this->input->post('filelama');
+    $text = $this->input->post('text');
+    $upload = $_FILES['upload']['name'];
 
+    // Data awal yang akan diperbarui
+    $data = [
+        'id_pertemuan' => $pertemuan,
+        'text' => $text,
+        'updated_at' => date('Y-m-d H:i:s')
+    ];
+
+    if ($upload) {
+        // Konfigurasi upload file baru
+        $config['encrypt_name'] = TRUE;
+        $config['upload_path'] = './assets/tugassiswa/';
+        $config['allowed_types'] = 'pdf|docx|doc'; // Hanya izinkan file PDF, DOCX, dan DOC
+        $config['max_size'] = 32000; // Maksimal ukuran file 2MB
+
+        $this->load->library('upload', $config);
+
+        if ($this->upload->do_upload('upload')) {
+            // Hapus file lama jika ada dan berbeda dengan file baru
+            if ($filelama && file_exists(FCPATH . 'assets/tugassiswa/' . $filelama)) {
+                unlink(FCPATH . 'assets/tugassiswa/' . $filelama);
             }
 
+            // Set nama file baru
+            $new_upload = $this->upload->data('file_name');
+            $data['upload'] = $new_upload;
+        } else {
+            // Jika upload gagal, tampilkan error
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Tugas gagal diubah: ' . $this->upload->display_errors() . '</div>');
             redirect($this->agent->referrer());
-        
+            return;
+        }
+    } else {
+        // Jika tidak ada file baru yang diupload, tetap gunakan file lama
+        $data['upload'] = $filelama;
     }
+
+    // Update tugas ke database
+    $this->Pertemuan_model->updateHasilTugas($id, $data);
+
+    // Set flashdata untuk pesan sukses
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Tugas berhasil diubah</div>');
+
+    // Redirect kembali ke halaman sebelumnya
+    redirect($this->agent->referrer());
+}
+
     
     public function Quiz($id = ''){
             $data['title'] = "Quiz";
